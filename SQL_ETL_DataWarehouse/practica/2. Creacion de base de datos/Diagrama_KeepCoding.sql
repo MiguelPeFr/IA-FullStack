@@ -1,3 +1,13 @@
+  
+    create table ivr_module (
+    ivr_module_id SERIAL PRIMARY KEY,
+    module_sequence INT not null,
+    module_name VARCHAR(255),
+    module_duration INT not null,
+    module_result VARCHAR(255) not null,
+  
+  );
+
   create table alumno (
     alumno_id SERIAL PRIMARY KEY,
     nombre VARCHAR(255) not null,
