@@ -1,15 +1,13 @@
-SELECT
-  COUNT(calls_phone_number) AS num_llamadas,
-  calls_phone_number,
-  document_type,
-  document_identification
-FROM 
-  keepcoding.ivr_detail
+SELECT calls_ivr_id, document_type, document_identification
 
-GROUP BY document_type, calls_phone_number, document_identification
+FROM(
+  SELECT calls_ivr_id, document_type, document_identification,
 
-HAVING 
-  document_type != 'UNKNOWN' 
-  AND document_identification != 'UNKNOWN'
+  DENSE_RANK() OVER(PARTITION BY CAST(calls_ivr_id AS INT64) ORDER BY document_identification, document_type) AS dociden
+  
+FROM `keepcoding.ivr_detail`
 
-ORDER BY num_llamadas DESC;
+GROUP BY document_type, document_identification, calls_ivr_id
+)
+
+WHERE dociden = 1

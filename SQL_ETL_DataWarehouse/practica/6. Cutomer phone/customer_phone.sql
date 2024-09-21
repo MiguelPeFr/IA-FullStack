@@ -1,11 +1,8 @@
-SELECT calls_phone_number AS customer_phone
-    ,document_identification
-    , COUNT(document_identification) AS rep_document
 
+SELECT calls_ivr_id, calls_phone_number,
 
+  ROW_NUMBER() OVER(PARTITION BY CAST(calls_ivr_id AS INT64) ORDER BY calls_phone_number) 
+  
 FROM `keepcoding.ivr_detail`
 
-WHERE document_identification != "UNKNOWN"
-GROUP BY calls_phone_number, document_identification
-
-ORDER BY rep_document DESC
+GROUP BY calls_phone_number, calls_ivr_id
