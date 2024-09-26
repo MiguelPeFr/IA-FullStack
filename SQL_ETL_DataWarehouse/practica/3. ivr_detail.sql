@@ -1,16 +1,18 @@
-CREATE TABLE keepcoding.ivr_detail AS ivr_detail
+CREATE OR REPLACE TABLE `keepcoding.ivr_detail` AS 
 SELECT 
     calls.ivr_id AS calls_ivr_id,
     calls.phone_number AS calls_phone_number,
     calls.ivr_result AS calls_ivr_result,
     calls.vdn_label AS calls_vdn_label,
     calls.start_date AS calls_start_date,
-    FORMAT_TIMESTAMP('%Y%m%d', c.start_date) AS calls_start_date_id,
+    FORMAT_TIMESTAMP('%Y%m%d', calls.start_date) AS calls_start_date_id,
     calls.end_date AS calls_end_date,
-    FORMAT_TIMESTAMP('%Y%m%d', c.end_date) AS calls_end_date_id,
+    FORMAT_TIMESTAMP('%Y%m%d', calls.end_date) AS calls_end_date_id,
     calls.total_duration AS calls_total_duration,
     calls.customer_segment AS calls_customer_segment,
     calls.ivr_language AS calls_ivr_language,
+    calls.steps_module AS calls_steps_module,
+    calls.module_aggregation AS calls_module_aggregation,
     modules.module_sequece AS module_sequece,
     modules.module_name AS module_name,
     modules.module_duration AS module_duration,
