@@ -1,2 +1,2 @@
 # IA-FullStack
-AI FullStack Bootcamp
+Algunas prácticas del bootcamp de IA Full Stack
